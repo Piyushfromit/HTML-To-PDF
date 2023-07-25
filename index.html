@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML to PDF Download</title>
+</head>
+
+<body>
+    <div id="elementtodownload">
+        <h1>Hello, this is an example HTML page</h1>
+        <p>This is a sample paragraph to demonstrate the conversion to PDF.</p>
+    </div>
+
+    <!-- Button to trigger the PDF download -->
+    <button id="downloadBtn">Download PDF</button>
+
+    <!-- Include the pdfmake library from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.0/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.0/vfs_fonts.js"></script>
+
+    <!-- JavaScript code for PDF generation and download -->
+    <script>
+        // Function to convert the div content to PDF and trigger the download
+        function downloadPDF() {
+            const element = document.getElementById('elementtodownload');
+
+            // Define the content for the PDF
+            const pdfContent = {
+                content: [
+                    { text: element.querySelector('h1').textContent, fontSize: 18, bold: true, margin: [0, 0, 0, 10] },
+                    { text: element.querySelector('p').textContent, fontSize: 12, margin: [0, 0, 0, 10] }
+                ],
+                pageSize: 'A4',
+                pageOrientation: 'portrait',
+                pageMargins: [40, 60, 40, 60]
+            };
+
+            // Generate the PDF
+            const pdfDocGenerator = pdfMake.createPdf(pdfContent);
+
+            // Trigger the download of the PDF
+            pdfDocGenerator.download('downloaded_pdf.pdf');
+        }
+
+        // Attach the downloadPDF function to the button's click event
+        const downloadButton = document.getElementById('downloadBtn');
+        downloadButton.addEventListener('click', downloadPDF);
+    </script>
+</body>
+
+</html>
